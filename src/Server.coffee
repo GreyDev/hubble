@@ -22,16 +22,16 @@ module.exports = class Server
 				poll_failed:  req.body.poll_failed
 				poll_method:  req.body.poll_method
 
-			if poll?
-				resp.send 'You must supply an item ID!'
+			if not req.body.id?
+				resp.json(400, {result: 'error', message: 'An item ID must be supplied with the request'})
 				return
 
 			if value? and (poll_url? or poll_seconds? or poll_failed?)
-				resp.send 'you cannot set the value manually and also have it poll. it needs to do one or the other'
+				resp.json(400, {result: 'error', message: 'It is not possible to both set a value manually and have it poll.'})
 				return
 
 			board.set parameters
 
-			resp.send 'OK'
+			resp.json(200, {result: 'success', parameters: parameters})
 
 		app.listen(config.server.port)
