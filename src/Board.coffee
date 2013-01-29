@@ -34,12 +34,12 @@ module.exports = class Board
 				update:     (parameters) => @_createOrUpdateDataPoint parameters
 
 	_createOrUpdateDataPoint: (parameters) ->
-		item = _.find @data[parameters.column], (item) => item.label is parameters.label
-
+		item = _.find @data[parameters.column], (item) => item.id is parameters.id
+		
 		if item?
 			item.value = parameters.value
 		else
-		 	@data[parameters.column].push { label: parameters.label, value: parameters.value, high: parameters.high, low: parameters.low }
+		 	@data[parameters.column].push { id: parameters.id, label: parameters.label, value: parameters.value, high: parameters.high, low: parameters.low }
 
 		@draw()
 
