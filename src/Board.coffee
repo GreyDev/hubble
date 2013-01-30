@@ -35,9 +35,12 @@ module.exports = class Board
 
 	_createOrUpdateDataPoint: (parameters) ->
 		item = _.find @data[parameters.column], (item) => item.id is parameters.id
-		
+
 		if item?
-			item.value = parameters.value
+			if parameters.increment?
+				item.value = parseFloat(item.value) + parseFloat(parameters.value)
+			else
+				item.value = parameters.value
 		else
 		 	@data[parameters.column].push { id: parameters.id, label: parameters.label, value: parameters.value, high: parameters.high, low: parameters.low }
 
