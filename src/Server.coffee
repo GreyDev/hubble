@@ -31,7 +31,7 @@ module.exports = class Server
 				resp.json(400, {result: 'error', message: 'It is not possible to both set a value manually and have it poll.'})
 				return
 
-			unless parameters.value?
+			unless parameters.value? or (parameters.poll_url? or parameters.poll_seconds? or parameters.poll_failed?)
 				resp.json(400, {result: 'error', message: 'A value must be supplied with the request'})
 				return
 
