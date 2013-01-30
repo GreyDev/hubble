@@ -13,7 +13,7 @@ module.exports = class Server
 			parameters =
 				id:           req.body.id
 				column:       req.body.column
-				label:        (unless req.body.label? then "Label " + req.body.id else req.body.label)
+				label:        req.body.label
 				value:        req.body.value
 				high:         req.body.high
 				low:          req.body.low
